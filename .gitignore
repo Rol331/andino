@@ -1,0 +1,64 @@
+# Archivos de configuración local
+config/local.php
+.env
+.env.local
+
+# Archivos de logs
+*.log
+logs/
+error.log
+access.log
+
+# Archivos temporales
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos de sesión
+sessions/
+tmp/
+
+# Archivos de caché
+cache/
+*.cache
+
+# Archivos de uploads (opcional - puedes incluir imágenes de ejemplo)
+uploads/*
+!uploads/.gitkeep
+
+# Archivos de base de datos local
+*.sqlite
+*.db
+
+# Archivos de configuración de servidor
+.htaccess.local
+apache.conf
+nginx.conf
+
+# Archivos de dependencias (si usas Composer)
+vendor/
+
+# Archivos de Node.js (si usas npm)
+node_modules/
+package-lock.json
+
+# Archivos de compilación
+dist/
+build/
+
+# Archivos de testing
+tests/coverage/
+.phpunit.result.cache
