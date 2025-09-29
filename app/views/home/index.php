@@ -4,10 +4,10 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <h1>Distance Learning, Boundless Possibilities!</h1>
-                    <p>Education is a key to success and freedom from all the forces is a power and makes a person powerful</p>
+                    <h1><?php echo htmlspecialchars($pageContent['hero_title'] ?? 'Distance Learning, Boundless Possibilities!'); ?></h1>
+                    <p><?php echo htmlspecialchars($pageContent['hero_subtitle'] ?? 'Education is a key to success and freedom from all the forces is a power and makes a person powerful'); ?></p>
                     <div class="hero-buttons">
-                        <a href="<?php echo BASE_URL; ?>courses" class="btn btn-primary btn-lg">Apply Now</a>
+                        <a href="<?php echo BASE_URL; ?>courses" class="btn btn-primary btn-lg"><?php echo htmlspecialchars($pageContent['hero_button_text'] ?? 'Apply Now'); ?></a>
                     </div>
                     <div class="hero-features">
                         <div class="feature-item">
@@ -70,30 +70,30 @@
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item">
-                    <div class="stat-number">85%</div>
-                    <h4>Of recent graduates started new job</h4>
-                    <p>28k Graduated Students</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-item">
-                    <div class="stat-number">56K</div>
-                    <h4>Students Worldwide</h4>
+                    <div class="stat-number"><?php echo htmlspecialchars($pageContent['stat_1_number'] ?? '15,000+'); ?></div>
+                    <h4><?php echo htmlspecialchars($pageContent['stat_1_label'] ?? 'Students Enrolled'); ?></h4>
                     <p>Active learners globally</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item">
-                    <div class="stat-number">1996</div>
-                    <h4>Since 1996</h4>
-                    <p>Years of excellence</p>
+                    <div class="stat-number"><?php echo htmlspecialchars($pageContent['stat_2_number'] ?? '500+'); ?></div>
+                    <h4><?php echo htmlspecialchars($pageContent['stat_2_label'] ?? 'Expert Instructors'); ?></h4>
+                    <p>Professional educators</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item">
-                    <div class="stat-number">100+</div>
-                    <h4>Courses Available</h4>
+                    <div class="stat-number"><?php echo htmlspecialchars($pageContent['stat_3_number'] ?? '50+'); ?></div>
+                    <h4><?php echo htmlspecialchars($pageContent['stat_3_label'] ?? 'Courses Available'); ?></h4>
                     <p>Diverse learning paths</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-item">
+                    <div class="stat-number"><?php echo htmlspecialchars($pageContent['stat_4_number'] ?? '95%'); ?></div>
+                    <h4><?php echo htmlspecialchars($pageContent['stat_4_label'] ?? 'Success Rate'); ?></h4>
+                    <p>Student satisfaction</p>
                 </div>
             </div>
         </div>
@@ -152,8 +152,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-header text-center">
-                    <h3>Top Faculty</h3>
-                    <h2>Most demanding and top Academic programs</h2>
+                    <h3><?php echo htmlspecialchars($pageContent['courses_title'] ?? 'Featured Courses'); ?></h3>
+                    <h2><?php echo htmlspecialchars($pageContent['courses_subtitle'] ?? 'Discover our most popular courses designed to help you achieve your goals'); ?></h2>
                 </div>
             </div>
         </div>
@@ -313,8 +313,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-header text-center">
-                    <h3>Upcoming Events</h3>
-                    <h2>Join Our Upcoming Monthly Teaching Events</h2>
+                    <h3><?php echo htmlspecialchars($pageContent['events_title'] ?? 'Upcoming Events'); ?></h3>
+                    <h2><?php echo htmlspecialchars($pageContent['events_subtitle'] ?? 'Join our exciting events and connect with the community'); ?></h2>
                 </div>
             </div>
         </div>
@@ -426,8 +426,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-header text-center">
-                    <h3>Blog Insight</h3>
-                    <h2>Valuable insights to change your startup idea</h2>
+                    <h3><?php echo htmlspecialchars($pageContent['blog_title'] ?? 'Latest News & Updates'); ?></h3>
+                    <h2><?php echo htmlspecialchars($pageContent['blog_subtitle'] ?? 'Stay informed with our latest news and educational content'); ?></h2>
                 </div>
             </div>
         </div>

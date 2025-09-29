@@ -7,6 +7,10 @@ class HomeController extends Controller {
         $postModel = $this->model('Post');
         $eventModel = $this->model('Event');
         $categoryModel = $this->model('CourseCategory');
+        $contentModel = $this->model('PageContent');
+        
+        // Obtener contenido dinámico de la página principal
+        $pageContent = $contentModel->getByPage('home');
         
         // Obtener cursos destacados
         $featuredCourses = $courseModel->getPublished(3);
@@ -26,7 +30,8 @@ class HomeController extends Controller {
         $eventStats = $eventModel->getStats();
         
         $data = [
-            'title' => 'EduFix - Distance Learning, Boundless Possibilities!',
+            'title' => $pageContent['hero_title'] ?? 'EduFix - Distance Learning, Boundless Possibilities!',
+            'pageContent' => $pageContent,
             'featuredCourses' => $featuredCourses,
             'recentPosts' => $recentPosts,
             'upcomingEvents' => $upcomingEvents,
@@ -40,8 +45,12 @@ class HomeController extends Controller {
     }
     
     public function about() {
+        $contentModel = $this->model('PageContent');
+        $pageContent = $contentModel->getByPage('about');
+        
         $data = [
-            'title' => 'About Us - EduFix'
+            'title' => $pageContent['about_title'] ?? 'About Us - EduFix',
+            'pageContent' => $pageContent
         ];
         $this->view('home/about', $data);
     }
@@ -119,8 +128,12 @@ class HomeController extends Controller {
     }
     
     public function contact() {
+        $contentModel = $this->model('PageContent');
+        $pageContent = $contentModel->getByPage('contact');
+        
         $data = [
-            'title' => 'Contact Us - EduFix'
+            'title' => $pageContent['contact_title'] ?? 'Contact Us - EduFix',
+            'pageContent' => $pageContent
         ];
         $this->view('home/contact', $data);
     }
