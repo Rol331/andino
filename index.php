@@ -32,7 +32,7 @@ if (preg_match('/\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/i', $pa
 error_log("Request URI: " . $request);
 error_log("Parsed path: " . $path);
 
-// Rutas de la aplicación
+// Rutas de la aplicación (ordenadas de más específicas a menos específicas)
 $routes = [
     '' => 'HomeController@index',
     'home' => 'HomeController@index',
@@ -41,17 +41,17 @@ $routes = [
     'events' => 'HomeController@events',
     'blog' => 'HomeController@blog',
     'contact' => 'HomeController@contact',
-    'admin' => 'AdminController@index',
     'admin/login' => 'AdminController@login',
     'admin/logout' => 'AdminController@logout',
     'admin/dashboard' => 'AdminController@dashboard',
     'admin/users' => 'AdminController@users',
     'admin/posts' => 'AdminController@posts',
     'admin/courses' => 'AdminController@courses',
-    'admin/content' => 'ContentController@index',
     'admin/content/edit' => 'ContentController@edit',
     'admin/content/update' => 'ContentController@update',
     'admin/content/preview' => 'ContentController@preview',
+    'admin/content' => 'ContentController@index',
+    'admin' => 'AdminController@index',
     'api/posts' => 'ApiController@posts',
     'api/users' => 'ApiController@users'
 ];

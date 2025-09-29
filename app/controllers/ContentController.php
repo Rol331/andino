@@ -3,7 +3,7 @@
 class ContentController extends Controller {
     
     public function index() {
-        $this->requireAuth();
+        $this->requireAdmin();
         
         $contentModel = $this->model('PageContent');
         $pages = $contentModel->getAllPages();
@@ -15,9 +15,9 @@ class ContentController extends Controller {
         
         $this->view('admin/content/index', $data);
     }
-    
+
     public function edit($pageKey = null) {
-        $this->requireAuth();
+        $this->requireAdmin();
         
         if (!$pageKey) {
             setFlashMessage('error', 'Página no especificada');
@@ -41,9 +41,9 @@ class ContentController extends Controller {
         
         $this->view('admin/content/edit', $data);
     }
-    
+
     public function update() {
-        $this->requireAuth();
+        $this->requireAdmin();
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             setFlashMessage('error', 'Método no permitido');
@@ -68,9 +68,9 @@ class ContentController extends Controller {
         
         redirect('admin/content/edit/' . $pageKey);
     }
-    
+
     public function preview($pageKey = null) {
-        $this->requireAuth();
+        $this->requireAdmin();
         
         if (!$pageKey) {
             setFlashMessage('error', 'Página no especificada');
