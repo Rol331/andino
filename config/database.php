@@ -5,6 +5,7 @@ class Database {
     private $db_name = 'edufix_webapp';
     private $username = 'root';
     private $password = 'root';
+    private $port = '3306'; // Puerto estándar de MySQL
     private $conn;
 
     public function getConnection() {
@@ -12,7 +13,7 @@ class Database {
         
         try {
             $this->conn = new PDO(
-                "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8",
+                "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";charset=utf8",
                 $this->username,
                 $this->password
             );

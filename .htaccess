@@ -1,26 +1,22 @@
 RewriteEngine On
 
-# Permitir acceso a archivos estáticos
+# Permitir acceso directo a archivos estáticos
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ - [L]
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
+RewriteRule ^ - [L]
 
-# Redirigir todo a index.php
+# Redirigir todas las demás peticiones a index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
 
-# Configuración de seguridad
-<Files "*.php">
-    Order Allow,Deny
-    Allow from all
-</Files>
+# Configuración adicional para MAMP
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
 
-<Files "config/*">
-    Order Deny,Allow
-    Deny from all
-</Files>
-
-<Files "database/*">
-    Order Deny,Allow
-    Deny from all
-</Files>
+# Configuración de errores personalizados
+ErrorDocument 404 /cole/app/views/errors/404.php
+ErrorDocument 500 /cole/app/views/errors/500.php

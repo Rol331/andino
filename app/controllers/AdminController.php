@@ -25,13 +25,18 @@ class AdminController extends Controller {
             
             // Debug: mostrar datos recibidos
             error_log("Login attempt - Username: $username, Password length: " . strlen($password));
+            error_log("POST data: " . print_r($_POST, true));
             
             if (empty($username) || empty($password)) {
                 setFlashMessage('error', 'Por favor completa todos los campos');
+                error_log("Login failed: Empty username or password");
             } else {
                 try {
                     $userModel = $this->model('User');
+                    error_log("User model loaded successfully");
+                    
                     $user = $userModel->authenticate($username, $password);
+                    error_log("Authentication result: " . ($user ? "SUCCESS" : "FAILED"));
                     
                     if ($user) {
                         $_SESSION['user_id'] = $user['id'];
@@ -39,17 +44,22 @@ class AdminController extends Controller {
                         $_SESSION['user_role'] = $user['role'];
                         $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
                         
+                        error_log("Session variables set for user: " . $user['username']);
                         setFlashMessage('success', '¡Bienvenido, ' . $user['first_name'] . '!');
                         
                         // Redireccionar manualmente
-                        header("Location: " . BASE_URL . "admin/dashboard");
+                        $redirectUrl = BASE_URL . "admin/dashboard";
+                        error_log("Redirecting to: $redirectUrl");
+                        header("Location: $redirectUrl");
                         exit();
                     } else {
-                        setFlashMessage('error', 'Credenciales incorrectas');
+                        setFlashMessage('error', 'Credenciales incorrectas. Verifica tu usuario y contraseña.');
+                        error_log("Login failed: Invalid credentials for user: $username");
                     }
                 } catch (Exception $e) {
                     setFlashMessage('error', 'Error del sistema: ' . $e->getMessage());
                     error_log("Login error: " . $e->getMessage());
+                    error_log("Stack trace: " . $e->getTraceAsString());
                 }
             }
         }

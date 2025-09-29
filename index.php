@@ -20,6 +20,13 @@ require_once 'app/views/View.php';
 $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);
 $path = str_replace('/cole/', '', $path);
+$path = ltrim($path, '/');
+
+// Si es un archivo estático (CSS, JS, imágenes), no procesar con el router
+if (preg_match('/\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/i', $path)) {
+    // Dejar que Apache sirva el archivo estático directamente
+    return false;
+}
 
 // Debug del enrutamiento
 error_log("Request URI: " . $request);
