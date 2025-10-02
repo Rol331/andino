@@ -32,8 +32,8 @@ class User extends Model {
     
     // Crear nuevo usuario
     public function create($data) {
-        $query = "INSERT INTO {$this->table} (username, email, password, first_name, last_name, role) 
-                  VALUES (:username, :email, :password, :first_name, :last_name, :role)";
+        $query = "INSERT INTO {$this->table} (username, email, password, first_name, last_name, role, status, profile_image, bio) 
+                  VALUES (:username, :email, :password, :first_name, :last_name, :role, :status, :profile_image, :bio)";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':username', $data['username']);
@@ -42,6 +42,9 @@ class User extends Model {
         $stmt->bindParam(':first_name', $data['first_name']);
         $stmt->bindParam(':last_name', $data['last_name']);
         $stmt->bindParam(':role', $data['role']);
+        $stmt->bindParam(':status', $data['status']);
+        $stmt->bindParam(':profile_image', $data['profile_image']);
+        $stmt->bindParam(':bio', $data['bio']);
         
         return $stmt->execute();
     }
@@ -54,7 +57,9 @@ class User extends Model {
                   first_name = :first_name, 
                   last_name = :last_name, 
                   role = :role,
-                  status = :status
+                  status = :status,
+                  profile_image = :profile_image,
+                  bio = :bio
                   WHERE id = :id";
         $stmt = $this->db->prepare($query);
         
@@ -65,7 +70,18 @@ class User extends Model {
         $stmt->bindParam(':last_name', $data['last_name']);
         $stmt->bindParam(':role', $data['role']);
         $stmt->bindParam(':status', $data['status']);
+        $stmt->bindParam(':profile_image', $data['profile_image']);
+        $stmt->bindParam(':bio', $data['bio']);
         
+        return $stmt->execute();
+    }
+    
+    // Actualizar contraseña de usuario
+    public function updatePassword($id, $password) {
+        $query = "UPDATE {$this->table} SET password = :password WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':password', $password);
         return $stmt->execute();
     }
     
@@ -109,11 +125,11 @@ class User extends Model {
     // Obtener estadísticas de usuarios
     public function getStats() {
         $query = "SELECT 
-                    COUNT(*) as total_users,
-                    COUNT(CASE WHEN role = 'admin' THEN 1 END) as admin_users,
-                    COUNT(CASE WHEN role = 'instructor' THEN 1 END) as instructor_users,
-                    COUNT(CASE WHEN role = 'student' THEN 1 END) as student_users,
-                    COUNT(CASE WHEN status = 'active' THEN 1 END) as active_users
+                    COUNT(*) as total,
+                    COUNT(CASE WHEN role = 'admin' THEN 1 END) as admin,
+                    COUNT(CASE WHEN role = 'instructor' THEN 1 END) as instructor,
+                    COUNT(CASE WHEN role = 'student' THEN 1 END) as student,
+                    COUNT(CASE WHEN status = 'active' THEN 1 END) as active
                   FROM {$this->table}";
         $stmt = $this->db->prepare($query);
         $stmt->execute();

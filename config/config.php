@@ -15,6 +15,9 @@ if (session_status() === PHP_SESSION_NONE) {
 // Configuración de zona horaria
 date_default_timezone_set('America/Mexico_City');
 
+// Configuración de URLs
+define('BASE_URL', 'http://localhost/cole/');
+
 // Configuración de seguridad
 define('SECRET_KEY', 'edufix_clave_secreta_2025');
 define('ADMIN_EMAIL', 'admin@edufix.com');
@@ -52,13 +55,15 @@ function redirect($url) {
 
 // Función para mostrar mensajes flash
 function setFlashMessage($type, $message) {
-    $_SESSION['flash'][$type] = $message;
+    $_SESSION['flash_type'] = $type;
+    $_SESSION['flash_message'] = $message;
 }
 
 function getFlashMessage($type) {
-    if (isset($_SESSION['flash'][$type])) {
-        $message = $_SESSION['flash'][$type];
-        unset($_SESSION['flash'][$type]);
+    if (isset($_SESSION['flash_type']) && $_SESSION['flash_type'] === $type) {
+        $message = $_SESSION['flash_message'];
+        unset($_SESSION['flash_type']);
+        unset($_SESSION['flash_message']);
         return $message;
     }
     return null;

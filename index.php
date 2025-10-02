@@ -5,7 +5,6 @@ session_start();
 // Configuración de la aplicación
 define('APP_NAME', 'EduFix');
 define('APP_VERSION', '1.0.0');
-define('BASE_URL', 'http://localhost/cole/');
 
 // Incluir archivos de configuración
 require_once 'config/database.php';
@@ -45,8 +44,30 @@ $routes = [
     'admin/logout' => 'AdminController@logout',
     'admin/dashboard' => 'AdminController@dashboard',
     'admin/users' => 'AdminController@users',
+    'admin/users/create' => 'AdminController@createUser',
+    'admin/users/store' => 'AdminController@storeUser',
+    'admin/users/edit' => 'AdminController@editUser',
+    'admin/users/update' => 'AdminController@updateUser',
+    'admin/users/delete' => 'AdminController@deleteUser',
+    'admin/users/reset-password' => 'AdminController@resetPassword',
     'admin/posts' => 'AdminController@posts',
+    'admin/posts/create' => 'AdminController@createPost',
+    'admin/posts/store' => 'AdminController@storePost',
+    'admin/posts/edit' => 'AdminController@editPost',
+    'admin/posts/update' => 'AdminController@updatePost',
+    'admin/posts/delete' => 'AdminController@deletePost',
     'admin/courses' => 'AdminController@courses',
+    'admin/courses/create' => 'AdminController@create',
+    'admin/courses/store' => 'AdminController@store',
+    'admin/courses/edit' => 'AdminController@edit',
+    'admin/courses/update' => 'AdminController@update',
+    'admin/courses/delete' => 'AdminController@delete',
+    'admin/events' => 'AdminController@events',
+    'admin/events/create' => 'AdminController@createEvent',
+    'admin/events/store' => 'AdminController@storeEvent',
+    'admin/events/edit' => 'AdminController@editEvent',
+    'admin/events/update' => 'AdminController@updateEvent',
+    'admin/events/delete' => 'AdminController@deleteEvent',
     'admin/content/edit' => 'ContentController@edit',
     'admin/content/update' => 'ContentController@update',
     'admin/content/preview' => 'ContentController@preview',

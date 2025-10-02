@@ -36,14 +36,15 @@ class Post extends Model {
     
     // Crear nuevo post
     public function create($data) {
-        $query = "INSERT INTO {$this->table} (title, slug, content, excerpt, status, author_id, category_id) 
-                  VALUES (:title, :slug, :content, :excerpt, :status, :author_id, :category_id)";
+        $query = "INSERT INTO {$this->table} (title, slug, content, excerpt, featured_image, status, author_id, category_id) 
+                  VALUES (:title, :slug, :content, :excerpt, :featured_image, :status, :author_id, :category_id)";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':title', $data['title']);
         $stmt->bindParam(':slug', $data['slug']);
         $stmt->bindParam(':content', $data['content']);
         $stmt->bindParam(':excerpt', $data['excerpt']);
+        $stmt->bindParam(':featured_image', $data['featured_image']);
         $stmt->bindParam(':status', $data['status']);
         $stmt->bindParam(':author_id', $data['author_id']);
         $stmt->bindParam(':category_id', $data['category_id']);
@@ -58,6 +59,7 @@ class Post extends Model {
                   slug = :slug, 
                   content = :content, 
                   excerpt = :excerpt, 
+                  featured_image = :featured_image,
                   status = :status,
                   category_id = :category_id
                   WHERE id = :id";
@@ -68,6 +70,7 @@ class Post extends Model {
         $stmt->bindParam(':slug', $data['slug']);
         $stmt->bindParam(':content', $data['content']);
         $stmt->bindParam(':excerpt', $data['excerpt']);
+        $stmt->bindParam(':featured_image', $data['featured_image']);
         $stmt->bindParam(':status', $data['status']);
         $stmt->bindParam(':category_id', $data['category_id']);
         
@@ -140,14 +143,38 @@ class Post extends Model {
     // Obtener estadísticas de posts
     public function getStats() {
         $query = "SELECT 
-                    COUNT(*) as total_posts,
-                    COUNT(CASE WHEN status = 'published' THEN 1 END) as published_posts,
-                    COUNT(CASE WHEN status = 'draft' THEN 1 END) as draft_posts,
+                    COUNT(*) as total,
+                    COUNT(CASE WHEN status = 'published' THEN 1 END) as published,
+                    COUNT(CASE WHEN status = 'draft' THEN 1 END) as drafts,
                     SUM(views) as total_views
                   FROM {$this->table}";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetch();
+    }
+    
+    // Método para generar slug único
+    public function generateSlug($title) {
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+        $originalSlug = $slug;
+        $counter = 1;
+        
+        while ($this->slugExists($slug)) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+        
+        return $slug;
+    }
+    
+    // Método para verificar si un slug existe
+    private function slugExists($slug) {
+        $query = "SELECT COUNT(*) as count FROM {$this->table} WHERE slug = :slug";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':slug', $slug);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['count'] > 0;
     }
 }
 ?>

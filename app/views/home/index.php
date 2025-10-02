@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="hero-image">
-                    <img src="assets/images/hero-image.jpg" alt="Distance Learning" class="img-fluid">
+                    <img src="<?php echo BASE_URL; ?>assets/images/hero-image.jpg" alt="Distance Learning" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="ranking-image">
-                    <img src="assets/images/university-ranking.jpg" alt="Ranking universitario" class="img-fluid">
+                    <img src="<?php echo BASE_URL; ?>assets/images/university-ranking.jpg" alt="Ranking universitario" class="img-fluid">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -138,7 +138,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-image">
-                    <img src="assets/images/about-image.jpg" alt="Sobre nosotros" class="img-fluid">
+                    <img src="<?php echo BASE_URL; ?>assets/images/about-image.jpg" alt="Sobre nosotros" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="course-card">
                             <div class="course-image">
-                                <img src="<?php echo $course['featured_image'] ?: 'assets/images/course-placeholder.jpg'; ?>" alt="<?php echo $course['title']; ?>" class="img-fluid">
+                                <img src="<?php echo $course['featured_image'] ? BASE_URL . $course['featured_image'] : BASE_URL . 'assets/images/course-placeholder.jpg'; ?>" alt="<?php echo $course['title']; ?>" class="img-fluid">
                             </div>
                             <div class="course-content">
                                 <h4><?php echo $course['title']; ?></h4>
@@ -437,7 +437,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="blog-card">
                             <div class="blog-image">
-                                <img src="<?php echo $post['featured_image'] ?: 'assets/images/blog-placeholder.jpg'; ?>" alt="<?php echo $post['title']; ?>" class="img-fluid">
+                                <img src="<?php echo $post['featured_image'] ? BASE_URL . $post['featured_image'] : BASE_URL . 'assets/images/blog-placeholder.jpg'; ?>" alt="<?php echo $post['title']; ?>" class="img-fluid">
                             </div>
                             <div class="blog-content">
                                 <div class="blog-meta">

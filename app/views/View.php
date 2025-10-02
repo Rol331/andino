@@ -16,19 +16,36 @@ class View {
         // Extraer variables para que estén disponibles en la vista
         extract($this->data);
         
-        // Incluir el header
-        include "app/views/layouts/header.php";
+        // Determinar si es una vista de admin o pública
+        $isAdminView = strpos($view, 'admin/') === 0;
+        
+        if ($isAdminView) {
+            // Usar layout de administración
+            include "app/views/layouts/header.php";
+        } else {
+            // Usar layout público
+            include "app/views/layouts/public_header.php";
+        }
         
         // Incluir la vista específica
         $viewFile = "app/views/{$view}.php";
         if (file_exists($viewFile)) {
             include $viewFile;
         } else {
-            include "app/views/errors/404.php";
+            if ($isAdminView) {
+                include "app/views/errors/404.php";
+            } else {
+                include "app/views/errors/404_public.php";
+            }
         }
         
-        // Incluir el footer
-        include "app/views/layouts/footer.php";
+        if ($isAdminView) {
+            // Usar footer de administración
+            include "app/views/layouts/footer.php";
+        } else {
+            // Usar footer público
+            include "app/views/layouts/public_footer.php";
+        }
     }
     
     // Método para renderizar solo el contenido (sin layout)
